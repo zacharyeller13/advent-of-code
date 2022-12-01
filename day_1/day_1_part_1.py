@@ -1,4 +1,3 @@
-import time
 from timeit import timeit
 
 def method_1() -> None:
