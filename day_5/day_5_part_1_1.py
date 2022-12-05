@@ -1,5 +1,3 @@
-import os
-
 CRATE_LEN = 3
 CRATE_SPACE = 1
 
@@ -74,17 +72,22 @@ def parse_instruction(instruction: str) -> tuple[int, int, int]:
 
     return move_count, start, end
 
+def move_crate(stacks: dict[int, list[str]], start_stack: int, end_stack: int) -> None:
+    """
+    Move 1 crate from the `start_stack` to the `end_stack`
+    """
+
+    crate = stacks[start_stack].pop(0)
+    
+    stacks[end_stack].insert(0, crate)
+
 def move_crates(stacks: dict[int, list[str]], move_count: int, start_stack: int, end_stack: int) -> None:
     """
     Move as many crates as passed in `move_count` from the `start_stack` to the `end_stack`
     """
 
-    crates = stacks.get(start_stack)[:move_count]
-    del stacks.get(start_stack)[:move_count]
-        
-    stacks[end_stack].reverse()
-    stacks[end_stack].extend(crates)
-    stacks[end_stack].reverse()
+    for _ in range(move_count):
+        move_crate(stacks, start_stack, end_stack)
 
 def perform_instructions(stacks: dict[int, list[str]], instructions: list[str]) -> None:
     """
@@ -105,13 +108,15 @@ def list_top_crates(stacks: dict[int, list[str]]) -> None:
 
 def main() -> None:
 
-    stacks, instructions = read_input(f"{os.path.dirname(__file__)}/inputs")
+    stacks, instructions = read_input("inputs")
     
     parsed_stacks = parse_stacks(stacks)
     parsed_instructions = parse_instructions(instructions)
 
     perform_instructions(parsed_stacks, parsed_instructions)
-    list_top_crates(parsed_stacks)
+    # list_top_crates(parsed_stacks)
 
 if __name__ == "__main__":
+
     main()
+
