@@ -19,7 +19,7 @@
     return -1;
 }
 
-string inputs = System.IO.File.ReadAllText("day_6/inputs");
+string inputs = File.ReadAllText("day_6/inputs");
 
 Console.WriteLine(checkMarker(inputs));
 
