@@ -8,7 +8,7 @@ def read_input(file: str) -> str:
     
     return inputs
 
-def check_marker(stream: str) -> int:
+def check_marker(stream: str, length: int) -> int:
     """
     Read a stream of chars and return the last index of the first group of 4 consecutive unique chars
 
@@ -16,10 +16,10 @@ def check_marker(stream: str) -> int:
     """
 
     for i in range(len(stream)):
-        group = stream[i:i+4]
+        group = stream[i:i+length]
 
         if len(group) == len(set(group)):
-            return i+4
+            return i+length
 
     return -1
 
@@ -27,7 +27,7 @@ def main() -> None:
 
     stream = read_input(f"{os.path.dirname(__file__)}/inputs")
 
-    print(check_marker(stream))
+    print(check_marker(stream, 4))
 
 if __name__ == "__main__":
     main()
