@@ -1,16 +1,16 @@
-﻿static int checkMarker(string stream)
+﻿static int checkMarker(string stream, int markerLength)
 {
     string group = "";
     int i = 0;
 
-    while (i <= stream.Length - 4)
+    while (i <= stream.Length - markerLength)
     {
-        group = stream.Substring(i, 4);
+        group = stream.Substring(i, markerLength);
         HashSet<char> groupSet = group.ToHashSet();
 
         if (group.Length == groupSet.Count)
         {
-            return i + 4;
+            return i + markerLength;
         }
 
         i++;
@@ -21,4 +21,4 @@
 
 string inputs = File.ReadAllText("../inputs");
 
-Console.WriteLine(checkMarker(inputs));
+Console.WriteLine(checkMarker(inputs, 14));
