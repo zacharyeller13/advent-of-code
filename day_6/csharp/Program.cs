@@ -19,7 +19,6 @@
     return -1;
 }
 
-string inputs = File.ReadAllText("day_6/inputs");
+string inputs = File.ReadAllText("../inputs");
 
 Console.WriteLine(checkMarker(inputs));
-
