@@ -13,7 +13,6 @@ dir e
 $ cd e
 $ ls
 584 i
-dir z
 $ cd ..
 $ cd ..
 $ cd d
