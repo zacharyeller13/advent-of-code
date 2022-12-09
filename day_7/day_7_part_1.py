@@ -2,7 +2,6 @@
 
 import os
 from collections import defaultdict
-from pprint import pprint
 
 def read_input(file: str) -> list[str]:
 
@@ -13,7 +12,7 @@ def read_input(file: str) -> list[str]:
     
     return inputs
 
-def change_dir(path: list[str], next_dir: str) -> list[str]:
+def change_dir(path: list[str], next_dir: str) -> None:
 
     if next_dir == '/':
         path.clear()
@@ -49,16 +48,15 @@ def parse_stdout(line: list[str], path: list[str], sizes: defaultdict) -> None:
 
 def main() -> None:
 
-    inputs = read_input(f"{os.path.dirname(__file__)}/test_inputs")
+    inputs = read_input(f"{os.path.dirname(__file__)}/inputs")
 
     path = ['/']
     sizes = defaultdict(int)
 
     parse_lines(inputs, path, sizes)
-    print(sizes)
 
     answer = sum(v for _, v in sizes.items() if v <= 100000)
-    print(path)
+
     print(answer)
 
 if __name__ == "__main__":
