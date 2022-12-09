@@ -16,14 +16,13 @@ def read_input(file: str) -> list[str]:
 def change_dir(path: list[str], next_dir: str) -> list[str]:
 
     if next_dir == '/':
-        return [path[0]]
+        path.clear()
+        path.append('/')
     elif next_dir == '..':
         if len(path) > 1:
             path.pop()
-        return path
     else:
         path.append(next_dir)
-        return path
 
 def parse_command(line: list[str], path: list[str]) -> None:
 
@@ -50,7 +49,7 @@ def parse_stdout(line: list[str], path: list[str], sizes: defaultdict) -> None:
 
 def main() -> None:
 
-    inputs = read_input(f"{os.path.dirname(__file__)}/inputs")
+    inputs = read_input(f"{os.path.dirname(__file__)}/test_inputs")
 
     path = ['/']
     sizes = defaultdict(int)
@@ -59,7 +58,7 @@ def main() -> None:
     print(sizes)
 
     answer = sum(v for _, v in sizes.items() if v <= 100000)
-
+    print(path)
     print(answer)
 
 if __name__ == "__main__":
