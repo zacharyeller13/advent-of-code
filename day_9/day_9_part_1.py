@@ -34,7 +34,7 @@ def make_moves(h_point: Point, t_point: Point, moves: list[str], move_dict: defa
 
         if abs(x_diff) >= 2 and abs(y_diff) >= 2:
             t_point.x = h_point.x-1 if x_diff > 0 else h_point.x+1
-            t_point.y = h_point.y-1 if y_diff > 0 < h_point.y else h_point.y+1
+            t_point.y = h_point.y-1 if y_diff > 0 else h_point.y+1
         elif abs(x_diff) >= 2:
             t_point.x = h_point.x-1 if x_diff > 0 else h_point.x+1
             t_point.y = h_point.y
