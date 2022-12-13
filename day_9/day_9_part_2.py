@@ -13,11 +13,9 @@ def make_moves(h_point: Point, t_points: list[Point], moves: list[str], move_dic
         h_point.move(move)
         make_move(h_point, t_points[0])
 
-        move_dict[(t_points[-1].x, t_points[-1].y)] = 1
-
         for i in range(1, len(t_points)):
             make_move(t_points[i-1], t_points[i])
-
+            
         move_dict[(t_points[-1].x, t_points[-1].y)] = 1
 
 def make_move(h_point: Point, t_point: Point) -> None:
@@ -37,8 +35,8 @@ def make_move(h_point: Point, t_point: Point) -> None:
 
 def main() -> None:
 
-    # inputs = read_input(f"{os.path.dirname(__file__)}/test_inputs_large")
-    inputs = read_input(f"{os.path.dirname(__file__)}/inputs")
+    inputs = read_input(f"{os.path.dirname(__file__)}/test_inputs_large")
+    # inputs = read_input(f"{os.path.dirname(__file__)}/inputs")
 
     moves = parse_moves(inputs)
         
