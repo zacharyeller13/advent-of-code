@@ -12,10 +12,12 @@ class Point:
     x: int
     y: int
 
-    def move(self: "Point", dir: str, steps: int) -> None:
+    def move(self: "Point", dir: str) -> None:
 
         if dir in ('L', 'D'):
-            steps *= -1
+            steps = -1
+        else:
+            steps = 1
         
         if dir in ('L', 'R'):
             self.x += steps

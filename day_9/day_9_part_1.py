@@ -16,9 +16,9 @@ def read_input(file: str) -> list[str]:
 def parse_moves(inputs: list[str]) -> list[str]:
 
     all_moves = []
-
-    for str in [move[0]*int(move[-1]) for move in inputs]:
-        all_moves.extend(str)
+    for move in inputs:
+        moves = move.split()
+        all_moves.extend(moves[0]*int(moves[1]))
 
     return all_moves
 
@@ -26,45 +26,34 @@ def make_moves(h_point: Point, t_point: Point, moves: list[str], move_dict: defa
 
     for move in moves:
 
-        h_point.move(move, 1)
-
-        x_diff = h_point.x - t_point.x
-        y_diff = h_point.y - t_point.y
-        print(move)
-        print("H Moves: ", h_point, t_point)
-
-        if abs(x_diff) >= 2 and h_point.y == t_point.y:
-            t_point.x += 1 if x_diff > 0 else -1
-        elif abs(y_diff) >= 2 and h_point.x == t_point.x:
-            t_point.y += 1 if y_diff > 0 else -1
-        elif abs(x_diff) > 1 or abs(y_diff) > 1:
-            t_point.x += 1 if x_diff > 0 else -1
-            t_point.y += 1 if y_diff > 0 else -1
-
-
-        print("T Moves: ", h_point, t_point)
         move_dict[(t_point.x, t_point.y)] = 1
-        print()
+        h_point.move(move)
+
+        x_diff = (h_point.x - t_point.x)
+        y_diff = (h_point.y - t_point.y)
+
+        if abs(x_diff) >= 2 and abs(y_diff) >= 2:
+            t_point.x = h_point.x-1 if x_diff > 0 else h_point.x+1
+            t_point.y = h_point.y-1 if y_diff > 0 < h_point.y else h_point.y+1
+        elif abs(x_diff) >= 2:
+            t_point.x = h_point.x-1 if x_diff > 0 else h_point.x+1
+            t_point.y = h_point.y
+        elif abs(y_diff) >= 2:
+            t_point.x = h_point.x
+            t_point.y = h_point.y-1 if y_diff > 0 else h_point.y+1
 
 def main() -> None:
 
-    inputs = read_input(f"{os.path.dirname(__file__)}/test_inputs")
+    inputs = read_input(f"{os.path.dirname(__file__)}/inputs")
 
     moves = parse_moves(inputs)
         
-    print(moves)
-
     h_pos = Point(0, 0)
     t_pos = Point(0, 0)
 
     t_moves = defaultdict(int)
-    t_moves[(t_pos.x, t_pos.y)] = 1
 
     make_moves(h_pos, t_pos, moves, t_moves)
-
-    print(h_pos, t_pos)
-
-    print(*t_moves)
 
     print(sum(t_moves.values()))
 
