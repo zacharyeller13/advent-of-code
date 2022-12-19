@@ -55,7 +55,7 @@ def main() -> None:
         tests = get_test(monkey)
         throws = get_throws(monkey)
 
-        monkeys.append(Monkey(items, ops, tests, throws[0], throws[1]))
+        monkeys.append(Monkey(items, ops, tests, throws[0], throws[1], 0))
 
     for _ in range(20):
         for monkey in monkeys:
@@ -75,7 +75,7 @@ def main() -> None:
     for monkey in monkeys[:2]:
         level *= monkey.check_count
 
-    print(level)    
+    print(level)
 
 if __name__ == "__main__":
     main()

@@ -1,10 +1,11 @@
 class Monkey:
-    def __init__(self, items: list[int], op: str, test_val: int, true: int, false: int) -> None:
+    def __init__(self, items: list[int], op: str, test_val: int, true: int, false: int, lcm: int) -> None:
         self.items = items
         self.op = op
         self.test_val = test_val
         self.true = true
         self.false = false
+        self.lcm = lcm
         self.check_count = 0
 
     def perform_op(self, item: int) -> int:
@@ -26,9 +27,11 @@ class Monkey:
 
     def check_items(self) -> None:
 
-        self.items = [self.perform_op(item)//3 for item in self.items]
+        # self.items = [self.perform_op(item)//3 for item in self.items]
+        # part 2
+        self.items = [self.perform_op(item) % self.lcm for item in self.items]
         self.check_count += len(self.items)
 
     def __str__(self) -> str:
 
-        return f"items: {self.items}, op: {self.op}, test_val: {self.test_val}, true: {self.true}, false: {self.false}, check_count: {self.check_count}"
+        return f"items: {self.items}, op: {self.op}, test_val: {self.test_val}, true: {self.true}, false: {self.false}, check_count: {self.check_count}, lcm: {self.lcm}"
