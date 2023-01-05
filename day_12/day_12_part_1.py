@@ -28,19 +28,41 @@ def set_edges(graph: list[str], rows: int, columns: int) -> list[list[int]]:
 
     return edges
 
-def bfs(graph: list[str], rows: int, columns: int) -> int:
+def bfs(graph: list[str], edges: list[list[int]], rows: int, columns: int) -> int | str:
     
     queue = deque()
+    visited = set()
 
     for r in range(rows):
         for c in range(columns):
-            pass
+            if graph[r][c] == 'S':
+                queue.append(((r,c), 0))
     
-    raise NotImplementedError
+    while queue:
+        (r,c), dist = queue.popleft()
+
+        print((r,c), dist)
+        
+        if (r,c) in visited:
+            continue
+        visited.add((r,c))
+
+        if graph[r][c] == 'E':
+            return dist
+
+        for dr, dc in [(-1,0),(0,1),(1,0),(0,-1)]:
+            next_r = r + dr
+            next_c = c + dc
+
+            if 0 <= next_r < rows and 0 <= next_c < columns and edges[next_r][next_c] <= edges[r][c]+1:
+                queue.append(((next_r,next_c), dist+1))
+
+    return "No path found"
 
 def main() -> None:
 
-    graph = read_input(f"{os.path.dirname(__file__)}/test_inputs")
+    # graph = read_input(f"{os.path.dirname(__file__)}/test_inputs")
+    graph = read_input(f"{os.path.dirname(__file__)}/inputs")
     rows = len(graph)
     columns = len(graph[0])
 
@@ -48,6 +70,7 @@ def main() -> None:
 
     print(graph)
     print(edges)
+    print(bfs(graph, edges, rows, columns))
 
 if __name__ == "__main__":
 
