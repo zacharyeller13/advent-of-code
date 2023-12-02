@@ -2,9 +2,5 @@
 
 public static class InputParser
 {
-    public static List<string> ParseInput(string inputFile)
-    {
-        string[] lines = inputFile.Split('\n');
-        return lines.ToList();
-    }
+    public static string[] ParseInput(string inputFile) => File.ReadAllLines(inputFile);
 }
