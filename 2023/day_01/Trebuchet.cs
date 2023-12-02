@@ -38,8 +38,14 @@ public class Trebuchet : ISolution
     public int SolvePart1() => GetCalibrationValues("Part1").Sum();
 
     public int SolvePart2() => GetCalibrationValues("Part2").Sum();
-    public IEnumerable<int> PrintPart2() => GetCalibrationValues("Part2");
 
+    public void PrintPart2()
+    {
+        foreach (var digit in GetCalibrationValues("Part2"))
+        {
+            Console.WriteLine(digit);            
+        }
+    }
 
     private IEnumerable<int> GetCalibrationValues(string part) => part switch
     {
@@ -50,24 +56,20 @@ public class Trebuchet : ISolution
 
     private int GetStringDigits(string line)
     {
-        int firstIndex = line.Length;
-        string first = "";
-        int lastIndex = -1;
-        string last = "";
-
-        foreach (string digit in _stringDigits.Keys)
+        List<int> digits = new();
+        
+        for (int i = 0; i < line.Length; i++)
         {
-            int index = line.IndexOf(digit);
-            if (index != -1)
+            foreach ((string digitKey, int digit) in _stringDigits)
             {
-                first = index < firstIndex ? digit : first;
-                firstIndex = index < firstIndex ? index : firstIndex;
-                last = index > lastIndex ? digit : last;
-                lastIndex = index > lastIndex ? index : lastIndex;
+                if (line[i..].StartsWith(digitKey))
+                {
+                    digits.Add(digit);
+                }
             }
         }
-        
-        return int.Parse($"{_stringDigits[first]}{_stringDigits[last]}");
+
+        return (digits[0] * 10) + digits[^1];
     }
 
     private static int GetCalibrationValue(string line)
