@@ -10,6 +10,7 @@
     <ItemGroup>
         <Content Include="2023\**\*.txt">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         </Content>
     </ItemGroup>
 

@@ -1,33 +1,76 @@
-﻿namespace AdventOfCode._2023.day_01;
+﻿using AdventOfCode.Lib;
 
-public class Trebuchet
+namespace AdventOfCode._2023.day_01;
+
+public class Trebuchet : ISolution
 {
     private readonly string[] _lines;
-    public IEnumerable<int> CalibrationValues { get; }
+
+    private readonly Dictionary<string, int> _stringDigits = new()
+    {
+        { "0", 0 },
+        { "1", 1 },
+        { "2", 2 },
+        { "3", 3 },
+        { "4", 4 },
+        { "5", 5 },
+        { "6", 6 },
+        { "7", 7 },
+        { "8", 8 },
+        { "9", 9 },
+        { "zero", 0 },
+        { "one", 1 },
+        { "two", 2 },
+        { "three", 3 },
+        { "four", 4 },
+        { "five", 5 },
+        { "six", 6 },
+        { "seven", 7 },
+        { "eight", 8 },
+        { "nine", 9 }
+    };
 
     public Trebuchet(string[] fileContents)
     {
         _lines = fileContents;
-        CalibrationValues = GetCalibrationValues();
     }
 
-    public void PrintLines()
+    public int SolvePart1() => GetCalibrationValues("Part1").Sum();
+
+    public int SolvePart2() => GetCalibrationValues("Part2").Sum();
+    public IEnumerable<int> PrintPart2() => GetCalibrationValues("Part2");
+
+
+    private IEnumerable<int> GetCalibrationValues(string part) => part switch
     {
-        foreach (string line in _lines)
-        {
-            Console.WriteLine(line);
-        }
-    }
+        "Part1" => _lines.Select(GetCalibrationValue),
+        "Part2" => _lines.Select(GetStringDigits),
+        _ => throw new ArgumentOutOfRangeException(nameof(part), "There are only 2 parts")
+    };
 
-    private IEnumerable<int> GetCalibrationValues()
+    private int GetStringDigits(string line)
     {
-        foreach(string line in _lines)
+        int firstIndex = line.Length;
+        string first = "";
+        int lastIndex = -1;
+        string last = "";
+
+        foreach (string digit in _stringDigits.Keys)
         {
-            yield return GetCalibrationValue(line);
+            int index = line.IndexOf(digit);
+            if (index != -1)
+            {
+                first = index < firstIndex ? digit : first;
+                firstIndex = index < firstIndex ? index : firstIndex;
+                last = index > lastIndex ? digit : last;
+                lastIndex = index > lastIndex ? index : lastIndex;
+            }
         }
+        
+        return int.Parse($"{_stringDigits[first]}{_stringDigits[last]}");
     }
 
-    private int GetCalibrationValue(string line)
+    private static int GetCalibrationValue(string line)
     {
         string nums = "";
         foreach (char character in line)
@@ -38,15 +81,6 @@ public class Trebuchet
             }
         }
 
-        if (nums.Length < 2)
-        {
-            nums += nums;
-        }
-        else
-        {
-            nums = $"{nums[0]}{nums[^1]}";
-        }
-
-        return int.Parse(nums);
+        return int.Parse($"{nums[0]}{nums[^1]}");
     }
 }
