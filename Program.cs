@@ -1,9 +1,11 @@
 ﻿using AdventOfCode._2023.day_01;
 using AdventOfCode.Lib;
 
-string[] testFile = InputParser.ParseInput("./2023/day_01/part1TestInput.txt");
-string[] testFile2 = InputParser.ParseInput("./2023/day_01/part2TestInput.txt");
-string[] file = InputParser.ParseInput("./2023/day_01/input.txt");
+string inputFolder = InputParser.ValidateArgs(args);
+
+string[] testFile = InputParser.ParseInput($"./{inputFolder}/part1TestInput.txt");
+string[] testFile2 = InputParser.ParseInput($"./{inputFolder}/part2TestInput.txt");
+string[] file = InputParser.ParseInput($"./{inputFolder}/input.txt");
 string divider = new string('-', 25);
 
 // Part 1 Solution
