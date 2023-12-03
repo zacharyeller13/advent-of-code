@@ -39,6 +39,14 @@ public class Trebuchet : ISolution
 
     public int SolvePart2() => GetCalibrationValues("Part2").Sum();
 
+    public void PrintLines()
+    {
+        foreach (string line in _lines)
+        {
+            Console.WriteLine(line);
+        }
+    }
+
     public void PrintPart2()
     {
         foreach (var digit in GetCalibrationValues("Part2"))

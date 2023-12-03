@@ -10,8 +10,12 @@ string[] file = InputParser.ParseInput($"./{inputFolder}/input.txt");
 string divider = new string('-', 25);
 
 // Part 1 Solution
-Trebuchet testSolution = new(testFile);
-Trebuchet solution = new(file);
+CubeConundrum testSolution = new(testFile);
+CubeConundrum solution = new(file);
+
+testSolution.PrintLines();
+
+return;
 
 Console.WriteLine($"{divider}Part 1{divider}");
 Console.WriteLine(testSolution.SolvePart1());
