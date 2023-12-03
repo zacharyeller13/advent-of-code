@@ -10,6 +10,7 @@ public class CubeConundrum : ISolution
 
     private readonly string[] _lines;
     private readonly Dictionary<int, bool> _gamePossibilities = new();
+    private int _sumOfPowers;
 
     public CubeConundrum(string[] fileContents)
     {
@@ -19,10 +20,7 @@ public class CubeConundrum : ISolution
 
     public int SolvePart1() => _gamePossibilities.Sum(kvp => kvp.Value ? kvp.Key : 0);
 
-    public int SolvePart2()
-    {
-        throw new NotImplementedException();
-    }
+    public int SolvePart2() => _sumOfPowers;
 
     public void PrintLines()
     {
@@ -48,8 +46,13 @@ public class CubeConundrum : ISolution
         foreach (string line in _lines)
         {
             int setsIdx = line.IndexOf(':');
+            
+            // For solving part 1
             _gamePossibilities.Add(int.Parse(line[gameIdx..setsIdx]),
                 CheckPossibilities(line[(setsIdx + ": ".Length)..]));
+            
+            // For solving part 2
+            _sumOfPowers += GetFewestCubes(line[(setsIdx + ": ".Length)..]).Aggregate((x, y) => x * y);
         }
     }
 
@@ -73,5 +76,15 @@ public class CubeConundrum : ISolution
         return redCount <= MaxRedCount
                && greenCount <= MaxGreenCount
                && blueCount <= MaxBlueCount;
+    }
+
+    private static IEnumerable<int> GetFewestCubes(string line)
+    {
+        IEnumerable<Dictionary<string, int>> cubes = ParseCubeCounts(line);
+
+        foreach (string color in new[] { "red", "green", "blue" })
+        {
+            yield return cubes.SelectMany(dict => dict).Max(kvp => kvp.Key == color ? kvp.Value : 0);
+        }
     }
 }
