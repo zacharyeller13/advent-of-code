@@ -4,21 +4,20 @@ namespace AdventOfCode._2023.day_02;
 
 public class CubeConundrum : ISolution
 {
-    private readonly string[] _lines;
-    private static readonly int redCount = 12;
-    private static readonly int greenCount = 13;
-    private static readonly int blueCount = 14;
+    private const int MaxRedCount = 12;
+    private const int MaxGreenCount = 13;
+    private const int MaxBlueCount = 14;
     
+    private readonly string[] _lines;
+    private readonly Dictionary<int, bool> _gamePossibilities = new();
 
     public CubeConundrum(string[] fileContents)
     {
         _lines = fileContents;
+        ParseGames();
     }
 
-    public int SolvePart1()
-    {
-        throw new NotImplementedException();
-    }
+    public int SolvePart1() => _gamePossibilities.Sum(kvp => kvp.Value ? kvp.Key : 0);
 
     public int SolvePart2()
     {
@@ -31,5 +30,50 @@ public class CubeConundrum : ISolution
         {
             Console.WriteLine(line);
         }
+    }
+
+    public void PrintGames()
+    {
+        foreach (var game in _gamePossibilities)
+        {
+            Console.WriteLine(game);
+        }
+    }
+
+    private void ParseGames()
+    {
+        // We know it always starts with "Game ", so we can use the known value instead of finding the index
+        const int gameIdx = 5;
+
+        foreach (string line in _lines)
+        {
+            int setsIdx = line.IndexOf(':');
+            _gamePossibilities.Add(int.Parse(line[gameIdx..setsIdx]), ParseGame(line[(setsIdx + ": ".Length)..]));
+        }
+    }
+
+    private static bool ParseGame(string line)
+    {
+        IEnumerable<Dictionary<string, int>> sets = line.Split("; ")
+            .Select(
+                set => set.Split(", ")
+                    .ToDictionary(
+                        s => s.Split(' ')[^1],
+                        s => int.Parse(s.Split(' ')[0])
+                    )
+            );
+
+        return sets.All(IsPossible);
+    }
+
+    private static bool IsPossible(Dictionary<string, int> gameCounts)
+    {
+        gameCounts.TryGetValue("red", out int redCount);
+        gameCounts.TryGetValue("green", out int greenCount);
+        gameCounts.TryGetValue("blue", out int blueCount);
+
+        return redCount <= MaxRedCount
+               && greenCount <= MaxGreenCount
+               && blueCount <= MaxBlueCount;
     }
 }
