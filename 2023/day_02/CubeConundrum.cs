@@ -7,7 +7,7 @@ public class CubeConundrum : ISolution
     private const int MaxRedCount = 12;
     private const int MaxGreenCount = 13;
     private const int MaxBlueCount = 14;
-    
+
     private readonly string[] _lines;
     private readonly Dictionary<int, bool> _gamePossibilities = new();
 
@@ -48,23 +48,21 @@ public class CubeConundrum : ISolution
         foreach (string line in _lines)
         {
             int setsIdx = line.IndexOf(':');
-            _gamePossibilities.Add(int.Parse(line[gameIdx..setsIdx]), ParseGame(line[(setsIdx + ": ".Length)..]));
+            _gamePossibilities.Add(int.Parse(line[gameIdx..setsIdx]),
+                CheckPossibilities(line[(setsIdx + ": ".Length)..]));
         }
     }
 
-    private static bool ParseGame(string line)
-    {
-        IEnumerable<Dictionary<string, int>> sets = line.Split("; ")
-            .Select(
-                set => set.Split(", ")
-                    .ToDictionary(
-                        s => s.Split(' ')[^1],
-                        s => int.Parse(s.Split(' ')[0])
-                    )
-            );
+    private static IEnumerable<Dictionary<string, int>> ParseCubeCounts(string line) => line.Split("; ")
+        .Select(
+            set => set.Split(", ")
+                .ToDictionary(
+                    s => s.Split(' ')[^1],
+                    s => int.Parse(s.Split(' ')[0])
+                )
+        );
 
-        return sets.All(IsPossible);
-    }
+    private static bool CheckPossibilities(string line) => ParseCubeCounts(line).All(IsPossible);
 
     private static bool IsPossible(Dictionary<string, int> gameCounts)
     {
