@@ -41,13 +41,22 @@ public class Scratchcards : ISolution
 
     public int SolvePart2()
     {
+        int[] cardCounts = new int[_scores.Count];
+
         // For each card, check winners
-        // For each winner, add an additional next card
-        // (e.g. Card 1 wins 2, add additional Card 2 and additional Card 3)
-        // Repeat until no more cards to process
-        // How many total cards are processed after this?
-        // Constraint: Cards will never make you copy a card past the end of the table
-        throw new NotImplementedException();
+        for (int i = 0; i < _scores.Count; i++)
+        {
+            cardCounts[i]++;
+            int scoreCount = _scores[i].Intersect(_scratchers[i]).Count();
+
+            // For each winner, add an additional next card
+            // (e.g. Card 1 wins 2, add additional Card 2 and additional Card 3)
+            for (int j = 0; j < scoreCount; j++)
+            {
+                cardCounts[i + j + 1] += cardCounts[i];
+            }
+        }
+        return cardCounts.Sum();
     }
     public void PrintLines()
     {

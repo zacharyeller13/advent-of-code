@@ -19,5 +19,5 @@ Console.WriteLine(solution.SolvePart1());
 
 // Part 2 Solution
 Console.WriteLine($"{divider}Part 2{divider}");
-//Console.WriteLine(testSolution.SolvePart2());
-//Console.WriteLine(solution.SolvePart2());
+Console.WriteLine(testSolution.SolvePart2());
+Console.WriteLine(solution.SolvePart2());
