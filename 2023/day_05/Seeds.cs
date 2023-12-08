@@ -12,17 +12,18 @@ namespace AdventOfCode._2023.day_05;
 // where not mapped, numbers are same
 // e.g. 0 == 0 => map.TryGetValue() where default is the same as the key
 
-public class Seeds : ISolution
+public class Seeds : SolutionBase
 {
-    private readonly string[] _lines;
-    private long[] _seeds;
-    private string[] _maps;
+    private readonly long[] _seeds;
+    private readonly List<(long,long)> _seedPairs = new();
 
-    public Seeds(string[] fileContents)
+    public Seeds(string[] fileContents) : base(fileContents)
     {
-        _lines = fileContents;
-        SetSeeds(fileContents);
-        SetMaps(fileContents);
+        _seeds = ParseSeeds(fileContents);
+        for (int i = 0; i < _seeds.Length; i += 2)
+        {
+            _seedPairs.Add((_seeds[i], _seeds[i + 1]));
+        }
     }
 
     public long SolvePart1Long()
@@ -34,43 +35,27 @@ public class Seeds : ISolution
         }
         return mappedSeeds.Min();
     }
+
     public long SolvePart2Long()
     {
-        throw new NotImplementedException();
-    }
-    
-    // Unused because the inputs are too large for a regular integer
-    // Maybe I should create a separate ISolutionLong interface? Maybe I'm "overengineering" lol
-    public int SolvePart1()
-    {
-        throw new NotImplementedException();
-    }
-    public int SolvePart2()
-    {
-        throw new NotImplementedException();
-    }
-    public void PrintLines()
-    {
-        foreach (var line in _lines)
+        // May not finish this; it's very complex
+        // And I'd like to try other days of the advent
+        foreach (var tuple in _seedPairs)
         {
-            Console.WriteLine(line);
+            Console.WriteLine(string.Join(',', tuple));
         }
+        return -1;
     }
 
-    private void SetSeeds(string[] fileContents)
+    private static long[] ParseSeeds(string[] fileContents)
     {
         string[] seeds = fileContents[0].Split(':')[1].Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        _seeds = Array.ConvertAll<string, long>(seeds, long.Parse);
-    }
-
-    private void SetMaps(string[] fileContents)
-    {
-        _maps = fileContents[1..];
+        return Array.ConvertAll<string, long>(seeds, long.Parse);
     }
 
     private long MapSeed(long seed)
     {
-        foreach (var map in _maps)
+        foreach (var map in _lines[1..])
         {
             string[] parts = map.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
             seed = ProcessMaps(seed, parts[1..]);
