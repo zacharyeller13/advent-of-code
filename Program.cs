@@ -1,4 +1,4 @@
-﻿using AdventOfCode._2023.day_06;
+﻿using AdventOfCode._2023.day_07;
 using AdventOfCode.Lib;
 
 (string inputFolder, string part) = InputParser.ValidateArgs(args);
@@ -8,8 +8,8 @@ string[] file = InputParser.ParseInput($"./{inputFolder}/input.txt");
 string divider = new string('-', 25);
 
 // Part 1 Solution
-WaitForIt testSolution = new(testFile);
-WaitForIt solution = new(file);
+CamelCards testSolution = new(testFile);
+CamelCards solution = new(file);
 
 if (part == "1" || part == "all")
 {
