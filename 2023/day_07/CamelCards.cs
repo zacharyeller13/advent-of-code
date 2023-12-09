@@ -139,6 +139,9 @@ public class CamelCards : SolutionBase
     // .NET doesn't actually to any validation from the attribute
     private static string ReplaceFaceCards(string hand, [Range(1,2)] int part = 1)
     {
+        // Comparing ordinally, so replace with values that would be larger (or smaller in part 2)
+        // https://www.barcodefaq.com/ascii-chart-char-set/
+        
         char jReplacement = part == 2 ? '1' : ';';
         
         return hand.Replace('T', ':')
