@@ -11,8 +11,31 @@ public static class MathExtensions
         return numbers.Aggregate(BigInteger.GreatestCommonDivisor);
     }
 
+    public static ulong GCD2(params ulong[] numbers)
+    {
+        return numbers.Aggregate(GCD2);
+    }
+
+    public static ulong GCD2(ulong a, ulong b)
+    {
+        while (a != 0 && b != 0)
+        {
+            if (a > b)
+                a %= b;
+            else
+                b %= a;
+        }
+
+        return a | b;
+    }
+    
     public static BigInteger LCM(params BigInteger[] numbers)
     {
         return numbers.Aggregate((x, y) => x * y / GCD(x, y));
+    }
+    
+    public static ulong LCM2(params ulong[] numbers)
+    {
+        return numbers.Aggregate((x, y) => x * y / GCD2(x, y));
     }
 }

@@ -28,4 +28,7 @@ if (part is "2" or "all")
     Console.WriteLine($"{divider}Part 2{divider}");
     Console.WriteLine(testSolution2.SolvePart2());
     Console.WriteLine(solution.SolvePart2()); // 1016719625 too low; 14321394058031 correct
+    
+    Console.WriteLine(MathExtensions.GCD2(13019, 16897, 16343, 21883, 14681, 20221));
+    Console.WriteLine(MathExtensions.LCM2(13019, 16897, 16343, 21883, 14681, 20221));
 }
