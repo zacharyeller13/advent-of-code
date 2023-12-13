@@ -34,9 +34,32 @@ public class MirageMaintenance : SolutionBase
         return extrapolatedValues;
     }
 
+    public override int SolvePart2()
+    {
+        int extrapolatedValues = 0;
+        foreach (string line in _lines)
+        {
+            int[] intLine = Array.ConvertAll(line.Split(), int.Parse);
+            // Create sequences stack with each subsequent sequence till we reach 
+            // a sequence of all zeros
+            Stack<int[]> sequences = FindZeroSequence(intLine);
+
+            // Pop each sequence and subtract new value at front
+            // until we get to the top line
+            int nextInt = 0;
+            while (sequences.Count > 0)
+            {
+                int[] sequence = sequences.Pop();
+                nextInt = sequence[0] - nextInt;
+            }
+            extrapolatedValues += (intLine[0] - nextInt);
+        }
+
+        return extrapolatedValues;
+    }
+
     private static Stack<int[]> FindZeroSequence(int[] intLine)
     {
-        // Add the initial line to the stack for processing on reversal?
         Stack<int[]> sequences = new();
             
         while (intLine.Any(n => n != 0))

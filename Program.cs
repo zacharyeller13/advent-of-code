@@ -22,7 +22,7 @@ if (part is "1" or "all")
 
 if (part is "2" or "all")
 {
-    
     Console.WriteLine($"{divider}Part 2{divider}");
-    Console.WriteLine(solution.SolvePart2());
+    Console.WriteLine(testSolution.SolvePart2()); // 2
+    Console.WriteLine(solution.SolvePart2()); // 1108
 }
