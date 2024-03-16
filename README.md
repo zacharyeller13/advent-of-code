@@ -8,5 +8,5 @@ AoC typically has at least a handful of problems that get pretty deeply involved
 
 I may never attempt too many different languages but I can least list the ones I am trying/have tried so far.
 
-2022 - Mostly Python with 1 or 2 tried in C#
-2023 - All C#
+- 2022 - Mostly Python with 1 or 2 tried in C#
+- 2023 - All C#
