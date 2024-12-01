@@ -16,6 +16,7 @@ if (types.Length > 1)
 }
 
 Type solutionType = types[0];
+
 if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(int))
 {
     var testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
@@ -24,9 +25,15 @@ if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(int))
 }
 else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(long))
 {
-    var testSolution = Activator.CreateInstance(solutionType, testFile);
-    var solution = Activator.CreateInstance(solutionType, file);
+    var testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
+    var solution = Activator.CreateInstance(solutionType, args: [file]);
     RunSolutions((testSolution as SolutionBase<long>)!, (solution as SolutionBase<long>)!);
+}
+else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(ulong))
+{
+    var testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
+    var solution = Activator.CreateInstance(solutionType, args: [file]);
+    RunSolutions((testSolution as SolutionBase<ulong>)!, (solution as SolutionBase<ulong>)!);
 }
 
 return;

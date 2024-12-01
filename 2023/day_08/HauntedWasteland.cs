@@ -3,7 +3,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_08;
 
-public class HauntedWasteland : SolutionBase<int>
+public class HauntedWasteland : SolutionBase<ulong>
 {
     private readonly string _instructions;
     private readonly Dictionary<string, (string Left, string Right)> _nodes = new();
@@ -20,12 +20,13 @@ public class HauntedWasteland : SolutionBase<int>
         }
     }
 
-    public override int SolvePart1() => FindPathToZ("AAA");
+    public override ulong SolvePart1() => FindPathToZ("AAA");
 
-    public new BigInteger SolvePart2()
+    // public new BigInteger SolvePart2()
+    public override ulong SolvePart2()
     {
         var startNodes = _nodes.Keys.Where(key => key.EndsWith('A'));
-        Dictionary<string, BigInteger> pathsToZ = new();
+        Dictionary<string, ulong> pathsToZ = new();
         foreach (string startNode in startNodes)
         {
             pathsToZ.Add(startNode, FindPathToZ(startNode));
@@ -40,7 +41,7 @@ public class HauntedWasteland : SolutionBase<int>
         return MathExtensions.LCM(pathsToZ.Values.ToArray());
     }
 
-    private int FindPathToZ(string startNode)
+    private ulong FindPathToZ(string startNode)
     {
         string currentNode = startNode;
         int steps = 0;
@@ -54,6 +55,6 @@ public class HauntedWasteland : SolutionBase<int>
             steps++;
         }
 
-        return steps;
+        return (ulong)steps;
     }
 }
