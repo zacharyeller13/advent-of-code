@@ -19,20 +19,20 @@ Type solutionType = types[0];
 
 if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(int))
 {
-    var testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
-    var solution = Activator.CreateInstance(solutionType, args: [file]);
+    object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
+    object? solution = Activator.CreateInstance(solutionType, args: [file]);
     RunSolutions((testSolution as SolutionBase<int>)!, (solution as SolutionBase<int>)!);
 }
 else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(long))
 {
-    var testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
-    var solution = Activator.CreateInstance(solutionType, args: [file]);
+    object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
+    object? solution = Activator.CreateInstance(solutionType, args: [file]);
     RunSolutions((testSolution as SolutionBase<long>)!, (solution as SolutionBase<long>)!);
 }
 else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(ulong))
 {
-    var testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
-    var solution = Activator.CreateInstance(solutionType, args: [file]);
+    object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
+    object? solution = Activator.CreateInstance(solutionType, args: [file]);
     RunSolutions((testSolution as SolutionBase<ulong>)!, (solution as SolutionBase<ulong>)!);
 }
 
@@ -44,15 +44,15 @@ void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution)
     if (part is "1" or "all")
     {
         Console.WriteLine($"{divider}Part 1{divider}");
-        Console.WriteLine(testSolution.SolvePart1()); // 18, 28, 68 = 114
-        Console.WriteLine(solution.SolvePart1()); // 1877825184
+        Console.WriteLine(testSolution.SolvePart1());
+        Console.WriteLine(solution.SolvePart1());
     }
 
     // Part 2 Solution
     if (part is "2" or "all")
     {
         Console.WriteLine($"{divider}Part 2{divider}");
-        Console.WriteLine(testSolution.SolvePart2()); // 2
-        Console.WriteLine(solution.SolvePart2()); // 1108
+        Console.WriteLine(testSolution.SolvePart2());
+        Console.WriteLine(solution.SolvePart2());
     }
 }
