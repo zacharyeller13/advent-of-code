@@ -3,12 +3,12 @@
 public class SolutionBase<T> : ISolution<T>
 {
     protected readonly string[] _lines;
+
     public SolutionBase(string[] fileContents)
     {
-
         _lines = fileContents;
-
     }
+
     public void PrintLines()
     {
         foreach (var line in _lines)
