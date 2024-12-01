@@ -2,7 +2,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_03;
 
-public class GearRatios : ISolution
+public class GearRatios : ISolution<int>
 {
     private readonly string[] _lines;
     private int _sumOfPartNumbers;

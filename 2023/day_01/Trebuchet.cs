@@ -2,7 +2,7 @@
 
 namespace AdventOfCode._2023.day_01;
 
-public class Trebuchet : ISolution
+public class Trebuchet : ISolution<int>
 {
     private readonly string[] _lines;
 

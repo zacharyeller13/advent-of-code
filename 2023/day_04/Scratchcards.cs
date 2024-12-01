@@ -2,7 +2,7 @@
 
 namespace AdventOfCode._2023.day_04;
 
-public class Scratchcards : ISolution
+public class Scratchcards : ISolution<int>
 {
     private readonly string[] _lines;
     private readonly List<HashSet<int>> _scores = new();

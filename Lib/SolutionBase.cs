@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode.Lib;
 
-public class SolutionBase : ISolution
+public class SolutionBase : ISolution<int>
 {
     protected readonly string[] _lines;
     public SolutionBase(string[] fileContents)

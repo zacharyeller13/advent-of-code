@@ -2,7 +2,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_02;
 
-public class CubeConundrum : ISolution
+public class CubeConundrum : ISolution<int>
 {
     private const int MaxRedCount = 12;
     private const int MaxGreenCount = 13;

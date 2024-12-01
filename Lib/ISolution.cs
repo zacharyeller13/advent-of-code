@@ -1,8 +1,8 @@
 namespace AdventOfCode.Lib;
 
-public interface ISolution
+public interface ISolution<T>
 {
-    public int SolvePart1();
-    public int SolvePart2();
+    public T SolvePart1();
+    public T SolvePart2();
     public void PrintLines();
 }
