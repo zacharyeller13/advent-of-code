@@ -4,7 +4,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_07;
 
-public class CamelCards : SolutionBase
+public class CamelCards : SolutionBase<int>
 {
     private readonly Dictionary<string, int> _handBids = new();
 

@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode.Lib;
 
-public class SolutionBase : ISolution<int>
+public class SolutionBase<T> : ISolution<T>
 {
     protected readonly string[] _lines;
     public SolutionBase(string[] fileContents)
@@ -17,12 +17,12 @@ public class SolutionBase : ISolution<int>
         }
     }
 
-    public virtual int SolvePart1()
+    public virtual T SolvePart1()
     {
         throw new NotImplementedException();
     }
 
-    public virtual int SolvePart2()
+    public virtual T SolvePart2()
     {
         throw new NotImplementedException();
     }

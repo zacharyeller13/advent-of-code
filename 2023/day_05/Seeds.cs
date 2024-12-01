@@ -12,7 +12,7 @@ namespace AdventOfCode._2023.day_05;
 // where not mapped, numbers are same
 // e.g. 0 == 0 => map.TryGetValue() where default is the same as the key
 
-public class Seeds : SolutionBase
+public class Seeds : SolutionBase<long>
 {
     private readonly long[] _seeds;
     private readonly List<(long,long)> _seedPairs = new();

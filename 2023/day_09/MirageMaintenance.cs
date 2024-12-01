@@ -2,7 +2,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_09;
 
-public class MirageMaintenance : SolutionBase
+public class MirageMaintenance : SolutionBase<int>
 {
     public MirageMaintenance(string[] fileContents) : base(fileContents)
     {

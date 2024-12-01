@@ -3,7 +3,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_08;
 
-public class HauntedWasteland : SolutionBase
+public class HauntedWasteland : SolutionBase<int>
 {
     private readonly string _instructions;
     private readonly Dictionary<string, (string Left, string Right)> _nodes = new();
@@ -22,7 +22,7 @@ public class HauntedWasteland : SolutionBase
 
     public override int SolvePart1() => FindPathToZ("AAA");
 
-    public BigInteger SolvePart2()
+    public new BigInteger SolvePart2()
     {
         var startNodes = _nodes.Keys.Where(key => key.EndsWith('A'));
         Dictionary<string, BigInteger> pathsToZ = new();
