@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using AdventOfCode._2023.day_09;
 using AdventOfCode.Lib;
 
 (string inputFolder, string part) = InputParser.ValidateArgs(args);
