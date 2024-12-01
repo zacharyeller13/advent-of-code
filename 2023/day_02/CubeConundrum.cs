@@ -2,33 +2,23 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_02;
 
-public class CubeConundrum : ISolution<int>
+public class CubeConundrum : SolutionBase<int>
 {
     private const int MaxRedCount = 12;
     private const int MaxGreenCount = 13;
     private const int MaxBlueCount = 14;
 
-    private readonly string[] _lines;
     private readonly Dictionary<int, bool> _gamePossibilities = new();
     private int _sumOfPowers;
 
-    public CubeConundrum(string[] fileContents)
+    public CubeConundrum(string[] fileContents) : base(fileContents)
     {
-        _lines = fileContents;
         ParseGames();
     }
 
-    public int SolvePart1() => _gamePossibilities.Sum(kvp => kvp.Value ? kvp.Key : 0);
+    public override int SolvePart1() => _gamePossibilities.Sum(kvp => kvp.Value ? kvp.Key : 0);
 
-    public int SolvePart2() => _sumOfPowers;
-
-    public void PrintLines()
-    {
-        foreach (string line in _lines)
-        {
-            Console.WriteLine(line);
-        }
-    }
+    public override int SolvePart2() => _sumOfPowers;
 
     public void PrintGames()
     {
@@ -46,11 +36,11 @@ public class CubeConundrum : ISolution<int>
         foreach (string line in _lines)
         {
             int setsIdx = line.IndexOf(':');
-            
+
             // For solving part 1
             _gamePossibilities.Add(int.Parse(line[gameIdx..setsIdx]),
                 CheckPossibilities(line[(setsIdx + ": ".Length)..]));
-            
+
             // For solving part 2
             _sumOfPowers += GetFewestCubes(line[(setsIdx + ": ".Length)..]).Aggregate((x, y) => x * y);
         }

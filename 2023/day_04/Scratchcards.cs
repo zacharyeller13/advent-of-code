@@ -2,15 +2,13 @@
 
 namespace AdventOfCode._2023.day_04;
 
-public class Scratchcards : ISolution<int>
+public class Scratchcards : SolutionBase<int>
 {
-    private readonly string[] _lines;
     private readonly List<HashSet<int>> _scores = new();
     private readonly List<HashSet<int>> _scratchers = new();
 
-    public Scratchcards(string[] fileContents)
+    public Scratchcards(string[] fileContents) : base(fileContents)
     {
-        _lines = fileContents;
         foreach (var line in _lines)
         {
             _scores.Add(GetScores(line));
@@ -18,7 +16,7 @@ public class Scratchcards : ISolution<int>
         }
     }
 
-    public int SolvePart1()
+    public override int SolvePart1()
     {
         int totalScore = 0;
 
@@ -39,7 +37,7 @@ public class Scratchcards : ISolution<int>
         return totalScore;
     }
 
-    public int SolvePart2()
+    public override int SolvePart2()
     {
         int[] cardCounts = new int[_scores.Count];
 
@@ -57,13 +55,6 @@ public class Scratchcards : ISolution<int>
             }
         }
         return cardCounts.Sum();
-    }
-    public void PrintLines()
-    {
-        foreach (var line in _lines)
-        {
-            Console.WriteLine(line);
-        }
     }
 
     private static HashSet<int> GetScores(string card)

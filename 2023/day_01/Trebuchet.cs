@@ -2,10 +2,8 @@
 
 namespace AdventOfCode._2023.day_01;
 
-public class Trebuchet : ISolution<int>
+public class Trebuchet : SolutionBase<int>
 {
-    private readonly string[] _lines;
-
     private readonly Dictionary<string, int> _stringDigits = new()
     {
         { "0", 0 },
@@ -30,28 +28,19 @@ public class Trebuchet : ISolution<int>
         { "nine", 9 }
     };
 
-    public Trebuchet(string[] fileContents)
+    public Trebuchet(string[] fileContents) : base(fileContents)
     {
-        _lines = fileContents;
     }
 
-    public int SolvePart1() => GetCalibrationValues("Part1").Sum();
+    public override int SolvePart1() => GetCalibrationValues("Part1").Sum();
 
-    public int SolvePart2() => GetCalibrationValues("Part2").Sum();
-
-    public void PrintLines()
-    {
-        foreach (string line in _lines)
-        {
-            Console.WriteLine(line);
-        }
-    }
+    public override int SolvePart2() => GetCalibrationValues("Part2").Sum();
 
     public void PrintPart2()
     {
         foreach (var digit in GetCalibrationValues("Part2"))
         {
-            Console.WriteLine(digit);            
+            Console.WriteLine(digit);
         }
     }
 
@@ -65,7 +54,7 @@ public class Trebuchet : ISolution<int>
     private int GetStringDigits(string line)
     {
         List<int> digits = new();
-        
+
         for (int i = 0; i < line.Length; i++)
         {
             foreach ((string digitKey, int digit) in _stringDigits)

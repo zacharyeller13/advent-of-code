@@ -26,7 +26,7 @@ public class Seeds : SolutionBase<long>
         }
     }
 
-    public long SolvePart1Long()
+    public override long SolvePart1()
     {
         List<long> mappedSeeds = new();
         foreach (var seed in _seeds)
@@ -36,7 +36,7 @@ public class Seeds : SolutionBase<long>
         return mappedSeeds.Min();
     }
 
-    public long SolvePart2Long()
+    public override long SolvePart2()
     {
         // May not finish this; it's very complex
         // And I'd like to try other days of the advent

@@ -2,45 +2,37 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode._2023.day_03;
 
-public class GearRatios : ISolution<int>
+public class GearRatios : SolutionBase<int>
 {
-    private readonly string[] _lines;
     private int _sumOfPartNumbers;
-    
+
     // Represents coordinates of a gear
     private HashSet<(int, int)> _gears = new();
+
     // Represents the gear ratio of each gear
     // defined by the product of the 2 numbers adjacent to each gear
     private Dictionary<(int, int), List<int>> _partNums = new();
 
-    public GearRatios(string[] fileContents)
+    public GearRatios(string[] fileContents) : base(fileContents)
     {
-        _lines = fileContents;
         CheckDigits();
     }
 
-    public int SolvePart1() => _sumOfPartNumbers;
+    public override int SolvePart1() => _sumOfPartNumbers;
 
-    public int SolvePart2()
+    public override int SolvePart2()
     {
         int gearRatio = 0;
 
-        foreach(var gearNums in _partNums.Values)
+        foreach (var gearNums in _partNums.Values)
         {
             if (gearNums.Count == 2)
             {
                 gearRatio += gearNums[0] * gearNums[1];
             }
         }
-        return gearRatio;
-    }
 
-    public void PrintLines()
-    {
-        foreach (string line in _lines)
-        {
-            Console.WriteLine(line);
-        }
+        return gearRatio;
     }
 
     private void CheckDigits()
@@ -57,7 +49,7 @@ public class GearRatios : ISolution<int>
             while (startIdx < line.Length)
             {
                 int endIdx = startIdx;
-                
+
                 while (endIdx < line.Length && char.IsDigit(line[endIdx]))
                 {
                     // Check above and below.
@@ -71,6 +63,7 @@ public class GearRatios : ISolution<int>
                     {
                         AddGears(index - 1, prevIdx, nextIdx);
                     }
+
                     if (next != "")
                     {
                         AddGears(index + 1, prevIdx, nextIdx);
@@ -106,6 +99,7 @@ public class GearRatios : ISolution<int>
                             _partNums[gear] = new List<int> { digits };
                         }
                     }
+
                     _gears.Clear();
                 }
 
@@ -113,6 +107,7 @@ public class GearRatios : ISolution<int>
             }
         }
     }
+
     private void AddGears(int rowIdx, int prevColIdx, int nextColIdx)
     {
         for (int i = prevColIdx; i < nextColIdx; i++)
@@ -135,7 +130,7 @@ public class GearRatios : ISolution<int>
         {
             return false;
         }
-        
+
         return (line[prevIdx..nextIdx]).Any(IsSymbol);
     }
 
