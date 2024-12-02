@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode.Lib;
 
-public class SolutionBase<T> : ISolution<T>
+public class SolutionBase<T> : ISolution<T> where T : struct
 {
     protected readonly string[] _lines;
 
@@ -19,11 +19,13 @@ public class SolutionBase<T> : ISolution<T>
 
     public virtual T SolvePart1()
     {
-        throw new NotImplementedException();
+        PrintLines();
+        return default;
     }
 
     public virtual T SolvePart2()
     {
-        throw new NotImplementedException();
+        PrintLines();
+        return default;
     }
 }

@@ -38,7 +38,7 @@ else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(ulong))
 
 return;
 
-void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution)
+void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution) where T : struct
 {
     // Part 1 Solution
     if (part is "1" or "all")
