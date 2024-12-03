@@ -17,10 +17,15 @@ public static class InputParser
     }
 
     public static string[] ParseInput(string inputFile) => File.ReadAllLines(inputFile);
-    public static string[] ParseInput(string inputFile, string splitString)
+    public static string[]? ParseInput(string inputFile, string splitString)
     {
-        string text = File.ReadAllText(inputFile);
-        return text.Split(splitString, StringSplitOptions.RemoveEmptyEntries);
+        if (File.Exists(inputFile))
+        {
+            string text = File.ReadAllText(inputFile);
+            return text.Split(splitString, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        return null;
     }
 
     private static void PrintUsage()
