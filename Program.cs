@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using AdventOfCode.Lib;
 
-(string inputFolder, string part) = InputParser.ValidateArgs(args);
+(string inputFolder, string part, bool isTest) = InputParser.ValidateArgs(args);
 
 string[] testFile = InputParser.ParseInput($"./{inputFolder}/part1TestInput.txt", "\n");
 string[] file = InputParser.ParseInput($"./{inputFolder}/input.txt", "\n");
@@ -21,31 +21,34 @@ if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(int))
 {
     object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
     object? solution = Activator.CreateInstance(solutionType, args: [file]);
-    RunSolutions((testSolution as SolutionBase<int>)!, (solution as SolutionBase<int>)!);
+    RunSolutions((testSolution as SolutionBase<int>)!, (solution as SolutionBase<int>)!, isTest);
 }
 else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(long))
 {
     object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
     object? solution = Activator.CreateInstance(solutionType, args: [file]);
-    RunSolutions((testSolution as SolutionBase<long>)!, (solution as SolutionBase<long>)!);
+    RunSolutions((testSolution as SolutionBase<long>)!, (solution as SolutionBase<long>)!, isTest);
 }
 else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(ulong))
 {
     object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
     object? solution = Activator.CreateInstance(solutionType, args: [file]);
-    RunSolutions((testSolution as SolutionBase<ulong>)!, (solution as SolutionBase<ulong>)!);
+    RunSolutions((testSolution as SolutionBase<ulong>)!, (solution as SolutionBase<ulong>)!, isTest);
 }
 
 return;
 
-void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution) where T : struct
+void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution, bool testOnly) where T : struct
 {
     // Part 1 Solution
     if (part is "1" or "all")
     {
         Console.WriteLine($"{divider}Part 1{divider}");
         Console.WriteLine(testSolution.SolvePart1());
-        Console.WriteLine(solution.SolvePart1());
+        if (!testOnly)
+        {
+            Console.WriteLine(solution.SolvePart1());
+        }
     }
 
     // Part 2 Solution
@@ -53,6 +56,9 @@ void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution) whe
     {
         Console.WriteLine($"{divider}Part 2{divider}");
         Console.WriteLine(testSolution.SolvePart2());
-        Console.WriteLine(solution.SolvePart2());
+        if (!testOnly)
+        {
+            Console.WriteLine(solution.SolvePart2());
+        }
     }
 }

@@ -2,13 +2,18 @@
 
 public static class InputParser
 {
-    public static (string, string) ValidateArgs(string[] args)
+    public static (string, string, bool) ValidateArgs(string[] args)
     {
-        if (args.Length != 3)
+        switch (args.Length)
         {
-            PrintUsage();
+            case < 3:
+                PrintUsage();
+                break;
+            case > 3:
+                return ($"{args[0]}/{args[1]}", args[2], args[3] == "test");
         }
-        return ($"{args[0]}/{args[1]}", args[2]);
+
+        return ($"{args[0]}/{args[1]}", args[2], false);
     }
 
     public static string[] ParseInput(string inputFile) => File.ReadAllLines(inputFile);
