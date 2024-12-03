@@ -16,38 +16,34 @@ if (types.Length > 1)
 }
 
 Type solutionType = types[0];
+object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
+object? solution = Activator.CreateInstance(solutionType, args: [file]);
 
 if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(int))
 {
-    object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
-    object? solution = Activator.CreateInstance(solutionType, args: [file]);
     RunSolutions((testSolution as SolutionBase<int>)!, (solution as SolutionBase<int>)!, isTest);
 }
 else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(long))
 {
-    object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
-    object? solution = Activator.CreateInstance(solutionType, args: [file]);
     RunSolutions((testSolution as SolutionBase<long>)!, (solution as SolutionBase<long>)!, isTest);
 }
 else if (solutionType.BaseType?.GenericTypeArguments[0] == typeof(ulong))
 {
-    object? testSolution = Activator.CreateInstance(solutionType, args: [testFile]);
-    object? solution = Activator.CreateInstance(solutionType, args: [file]);
     RunSolutions((testSolution as SolutionBase<ulong>)!, (solution as SolutionBase<ulong>)!, isTest);
 }
 
 return;
 
-void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution, bool testOnly) where T : struct
+void RunSolutions<T>(SolutionBase<T> test, SolutionBase<T> main, bool testOnly) where T : struct
 {
     // Part 1 Solution
     if (part is "1" or "all")
     {
         Console.WriteLine($"{divider}Part 1{divider}");
-        Console.WriteLine(testSolution.SolvePart1());
+        Console.WriteLine(test.SolvePart1());
         if (!testOnly)
         {
-            Console.WriteLine(solution.SolvePart1());
+            Console.WriteLine(main.SolvePart1());
         }
     }
 
@@ -55,10 +51,10 @@ void RunSolutions<T>(SolutionBase<T> testSolution, SolutionBase<T> solution, boo
     if (part is "2" or "all")
     {
         Console.WriteLine($"{divider}Part 2{divider}");
-        Console.WriteLine(testSolution.SolvePart2());
+        Console.WriteLine(test.SolvePart2());
         if (!testOnly)
         {
-            Console.WriteLine(solution.SolvePart2());
+            Console.WriteLine(main.SolvePart2());
         }
     }
 }
