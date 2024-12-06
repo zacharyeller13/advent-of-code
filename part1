@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+day="day_$(printf %02d "$1")"
+echo "day $day"
+
+dotnet run 2024 $day 1
