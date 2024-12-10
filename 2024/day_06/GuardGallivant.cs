@@ -1,4 +1,3 @@
-using System.Text;
 using AdventOfCode.Lib;
 
 namespace AdventOfCode._2024.day_06;
@@ -6,7 +5,8 @@ namespace AdventOfCode._2024.day_06;
 public class GuardGallivant : SolutionBase<int>
 {
     private readonly HashSet<(int, int)> _indices = [];
-    private readonly HashSet<(int, int)> _possibleObstacles = [];
+    private readonly HashSet<(int, int, string)> _possibleObstacles = [];
+    private int _obstacleCount = 0;
 
     public GuardGallivant(string[] fileContents) : base(fileContents)
     {
@@ -38,6 +38,7 @@ public class GuardGallivant : SolutionBase<int>
 
     public override int SolvePart2()
     {
+        
         (int Row, int Col) startIdx = (-1, -1);
         for (int i = 0; i < _lines.Length; i++)
         {
@@ -49,16 +50,15 @@ public class GuardGallivant : SolutionBase<int>
             }
         }
 
-        _indices.Add(startIdx);
+        _possibleObstacles.Add((startIdx.Row, startIdx.Col, "^"));
         MakeMoves(startIdx);
-
         foreach (var index in _possibleObstacles)
         {
             Console.WriteLine(index);
         }
         PrintLines();
 
-        return _possibleObstacles.Count;
+        return _obstacleCount;
     }
 
     private void MakeMoves((int Row, int Col) startIdx)
@@ -74,9 +74,11 @@ public class GuardGallivant : SolutionBase<int>
             while (currentIdx.Row > 0 && lines[currentIdx.Row - 1][currentIdx.Col] != '#')
             {
                 currentIdx.Row--;
-                if (!_indices.Add(currentIdx))
+                _indices.Add(currentIdx);
+                _possibleObstacles.Add((currentIdx.Row, currentIdx.Col, "^"));
+                if (_possibleObstacles.Contains((currentIdx.Row, currentIdx.Col, ">")))
                 {
-                    _possibleObstacles.Add(currentIdx with { Row = currentIdx.Row - 1});
+                    _obstacleCount++;
                 }
             }
 
@@ -84,9 +86,11 @@ public class GuardGallivant : SolutionBase<int>
             while (currentIdx.Col < maxCol && lines[currentIdx.Row][currentIdx.Col + 1] != '#')
             {
                 currentIdx.Col++;
-                if (!_indices.Add(currentIdx))
+                _indices.Add(currentIdx);
+                _possibleObstacles.Add((currentIdx.Row, currentIdx.Col, ">"));
+                if (_possibleObstacles.Contains((currentIdx.Row, currentIdx.Col, @"\/")))
                 {
-                    _possibleObstacles.Add(currentIdx with { Col = currentIdx.Col + 1});
+                    _obstacleCount++;
                 }
             }
 
@@ -94,9 +98,11 @@ public class GuardGallivant : SolutionBase<int>
             while (currentIdx.Row < maxRow && lines[currentIdx.Row + 1][currentIdx.Col] != '#')
             {
                 currentIdx.Row++;
-                if (!_indices.Add(currentIdx))
+                _indices.Add(currentIdx);
+                _possibleObstacles.Add((currentIdx.Row, currentIdx.Col, @"\/"));
+                if (_possibleObstacles.Contains((currentIdx.Row, currentIdx.Col, "<")))
                 {
-                    _possibleObstacles.Add(currentIdx with { Row = currentIdx.Row + 1 });
+                    _obstacleCount++;
                 }
             }
 
@@ -104,9 +110,11 @@ public class GuardGallivant : SolutionBase<int>
             while (currentIdx.Col > 0 && lines[currentIdx.Row][currentIdx.Col - 1] != '#')
             {
                 currentIdx.Col--;
-                if (!_indices.Add(currentIdx))
+                _indices.Add(currentIdx);
+                _possibleObstacles.Add((currentIdx.Row, currentIdx.Col, "<"));
+                if (_possibleObstacles.Contains((currentIdx.Row, currentIdx.Col, "^")))
                 {
-                    _possibleObstacles.Add(currentIdx with { Col = currentIdx.Col - 1 });
+                    _obstacleCount++;
                 }
             }
         }
