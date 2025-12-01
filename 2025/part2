@@ -3,5 +3,4 @@
 day="day_$(printf %02d "$1")"
 echo "day $day"
 
-# dotnet run 2024 $day 2
-uv run 2025/$day/part2.py
+uv run $day/part_2.py

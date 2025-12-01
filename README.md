@@ -11,3 +11,4 @@ I may never attempt too many different languages but I can least list the ones I
 - 2022 - Mostly Python with 1 or 2 tried in C#
 - 2023 - All C#
 - 2024 - All C#
+- 2025 - Python is so back
